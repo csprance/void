@@ -1,9 +1,8 @@
-import { exec, execSync } from "child_process";
+import { execSync } from "child_process";
 
-exec("git --version", (err) => {
-  if (!err) {
-    execSync("git config core.hooksPath .githooks");
-  } else {
-    console.log("Git is not installed, skipping hook setup.");
-  }
-});
+try{
+  execSync("git config core.hooksPath .githooks");
+}catch (e) {
+  console.error(`[VOID] - Error Running: ./scripts/preinstall.ts: ${e}`);
+}
+
