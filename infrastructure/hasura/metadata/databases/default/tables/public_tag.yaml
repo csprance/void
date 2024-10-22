@@ -1,0 +1,65 @@
+table:
+  name: tag
+  schema: public
+array_relationships:
+  - name: asset_tags
+    using:
+      foreign_key_constraint_on:
+        column: tag_id
+        table:
+          name: asset_tag
+          schema: public
+insert_permissions:
+  - role: manager
+    permission:
+      check: {}
+      columns:
+        - id
+        - name
+  - role: public
+    permission:
+      check: {}
+      columns: []
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - id
+        - name
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - id
+        - name
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - id
+        - name
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - id
+        - name
+      filter: {}
+      check: {}
+  - role: user
+    permission:
+      columns:
+        - id
+        - name
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: manager
+    permission:
+      filter: {}
+  - role: user
+    permission:
+      filter: {}

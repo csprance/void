@@ -1,0 +1,37 @@
+services:
+  hasura:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.void-hasura.entrypoints=websecure"
+      - "traefik.http.routers.void-hasura.tls.certresolver=myresolver"
+      - "traefik.http.services.void-hasura.loadBalancer.server.port=8080"
+
+  backend:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.void-backend.entrypoints=websecure"
+      - "traefik.http.routers.void-backend.tls.certresolver=myresolver"
+      - "traefik.http.services.void-backend.loadBalancer.server.port=1337"
+
+  frontend:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.void-frontend.entrypoints=websecure"
+      - "traefik.http.routers.void-frontend.tls.certresolver=myresolver"
+      - "traefik.http.services.void-frontend.loadBalancer.server.port=3000"
+
+  bull-monitor:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.void-queue.entrypoints=websecure"
+      - "traefik.http.routers.void-queue.tls.certresolver=myresolver"
+      - "traefik.http.services.void-queue.loadBalancer.server.port=3000"
+      - "traefik.http.middlewares.void-queue-auth.basicauth.users=void:$$apr1$$6sWaQ/Zi$$aBmHlY.GG1nlIOKK71WQv."
+      - "traefik.http.routers.void-queue.middlewares=void-queue-auth"
+
+  docs:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.void-docs.entrypoints=websecure"
+      - "traefik.http.routers.void-docs.tls.certresolver=myresolver"
+      - "traefik.http.services.void-docs.loadBalancer.server.port=80"

@@ -1,0 +1,32 @@
+table:
+  name: settings
+  schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - name
+        - value
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - name
+        - value
+      filter: {}
+      allow_aggregations: true
+event_triggers:
+  - name: settings-trigger
+    definition:
+      enable_manual: false
+      update:
+        columns: "*"
+    retry_conf:
+      interval_sec: 10
+      num_retries: 3
+      timeout_sec: 60
+    webhook: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/events/settings"
+    headers:
+      - name: AdminSecret
+        value_from_env: APP_SECRET

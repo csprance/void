@@ -1,0 +1,7 @@
+table:
+  name: storage_point_log
+  schema: public
+object_relationships:
+  - name: storage_point
+    using:
+      foreign_key_constraint_on: storage_point_name

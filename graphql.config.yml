@@ -1,0 +1,9 @@
+schema: schema.graphql
+extensions:
+  endpoints:
+    Default GraphQL Endpoint:
+      url: http://localhost:8080/v1/graphql
+      headers:
+        user-agent: Hasura GraphQL
+        x-hasura-admin-secret: APP-SECRET-DEVELOPMENT-LOCALHOST
+      introspect: true

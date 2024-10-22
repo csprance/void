@@ -1,0 +1,72 @@
+table:
+  name: user_role
+  schema: public
+object_relationships:
+  - name: Role
+    using:
+      foreign_key_constraint_on: role
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+insert_permissions:
+  - role: manager
+    permission:
+      check:
+        role:
+          _neq: admin
+      columns:
+        - active
+        - user_id
+        - id
+        - role
+        - created_at
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - active
+        - user_id
+        - id
+        - role
+        - created_at
+      filter: {}
+      allow_aggregations: true
+  - role: public
+    permission:
+      columns:
+        - active
+        - created_at
+        - id
+        - role
+        - user_id
+      filter:
+        user:
+          id:
+            _eq: X-Hasura-User-Id
+  - role: user
+    permission:
+      columns:
+        - active
+        - created_at
+        - id
+        - role
+        - user_id
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - active
+        - user_id
+        - id
+        - role
+        - created_at
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: manager
+    permission:
+      filter:
+        role:
+          _neq: admin

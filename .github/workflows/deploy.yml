@@ -1,0 +1,52 @@
+name: Deploy to Remote Server
+
+on:
+  push:
+    branches:
+      - main # or your preferred branch
+
+jobs:
+  deploy:
+    runs-on: [machine-name]
+
+    steps:
+      - name: Set Node.js 20.15.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.15.0
+
+      - uses: actions/checkout@v3
+
+      - name: Run yarn install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # run `yarn install`
+
+      - name: Check Commit Message
+        id: check_commit
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == *":feelsgood: RESET-PROD"* ]]; then
+            echo "reset_db=true" >> $GITHUB_OUTPUT
+          else
+            echo "reset_db=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check Skip Deploy Message
+        id: check_skip_deploy
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == *"SKIP-DEPLOY"* ]]; then
+            echo "skip_deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip_deploy=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Reset Database
+        if: steps.check_commit.outputs.reset_db == 'true'
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: void:reset-prod
+
+      - name: Start Production
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: void:start-prod

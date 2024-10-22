@@ -1,0 +1,281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  /* border: 1px solid #253341; */
+  -webkit-text-fill-color: black;
+  /* -webkit-box-shadow: 0 0 0px 1000px #253341 inset; */
+  /* box-shadow: 0 0 0px 1000px #253341 inset; */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark textarea:-webkit-autofill,
+.dark textarea:-webkit-autofill:hover,
+.dark textarea:-webkit-autofill:focus,
+.dark select:-webkit-autofill,
+.dark select:-webkit-autofill:hover,
+.dark select:-webkit-autofill:focus {
+  /* border: 1px solid #253341; */
+  -webkit-text-fill-color: white;
+  /* -webkit-box-shadow: 0 0 0px 1000px #253341 inset; */
+  /* box-shadow: 0 0 0px 1000px #253341 inset; */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(0, 0, 0, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: rgb(0, 0, 0, 0.25);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 0, 0, 0.5);
+}
+.dark ::-webkit-scrollbar {
+  width: 12px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255, 0.05);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(255, 255, 255, 0.25);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgb(255, 255, 255, 0.75);
+}
+
+/* .checkerboard {
+  background-image: linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.15) 25%,
+      transparent 25%
+    ),
+    linear-gradient(-45deg, rgba(0, 0, 0, 0.15) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.15) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.15) 75%);
+  background-size: 20px 20px;
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0px;
+} */
+.checkerboard {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="10" height="10" x="0" y="0" fill="rgba(128,128,128,0.05)"/><rect width="10" height="10" x="10" y="10" fill="rgba(128,128,128,0.05)"/><rect width="10" height="10" x="10" y="0" fill="rgba(128,128,128,0.1)"/><rect width="10" height="10" x="0" y="10" fill="rgba(128,128,128,0.1)"/></svg>');
+  background-repeat: repeat;
+}
+
+kbd {
+  @apply px-1 border border-b-2 rounded text-tide-500 border-tide-500 bg-tide-500/20 dark:text-tide-400;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* text classes */
+.text-primary {
+  @apply text-tide-800 dark:text-tide-100;
+}
+.text-secondary {
+  @apply text-tide-700 dark:text-tide-400;
+}
+.text-tertiary {
+  @apply text-tide-500 dark:text-tide-600;
+}
+
+/* background classes */
+.bg-primary {
+  @apply bg-white dark:bg-tide-950;
+}
+.bg-secondary {
+  @apply bg-tide-50 dark:bg-tide-900;
+}
+.bg-tertiary {
+  @apply bg-tide-200 dark:bg-tide-850;
+}
+
+/* misc */
+.divider {
+  @apply w-full h-px border-t border-tide-200 dark:border-tide-850;
+}
+
+/* text link classes */
+.text-link-primary {
+  @apply font-semibold leading-tight border-b-2 text-tide-800 dark:text-tide-100 border-b-sky-500 hover:text-sky-400 dark:active:text-sky-500 active:text-sky-500 dark:hover:text-sky-400;
+}
+
+.text-link-accent {
+  @apply leading-snug transition duration-150 ease-in-out text-sky-500 hover:underline hover:text-sky-400 active:text-sky-500 focus:outline-none;
+}
+
+.text-link-secondary {
+  @apply leading-snug hover:underline hover:text-sky-600 dark:hover:text-sky-400 dark:active:text-sky-500 active:text-sky-500;
+  @apply focus:outline-0 focus:ring-0 focus:border-none focus:ring-offset-0;
+}
+
+/* button classes */
+.button-accent-filled {
+  @apply relative flex items-center justify-center gap-2 text-white bg-sky-500 enabled:hover:bg-sky-400 active:bg-sky-500;
+  @apply disabled:bg-tide-700 disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500/50 focus-visible:outline-offset-0;
+}
+
+.button-accent-outlined {
+  @apply relative flex items-center justify-center gap-2 transition-colors border-2 border-sky-500 text-sky-500;
+  @apply active:bg-sky-500 active:border-transparent hover:border-transparent hover:bg-sky-400 hover:text-white disabled:border-tide-500;
+  @apply disabled:text-tide-500 disabled:bg-transparent disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500/50 focus-visible:outline-offset-0;
+}
+
+.button-primary-filled {
+  @apply relative flex items-center justify-center gap-2 transition-colors;
+  @apply text-tide-700 bg-tide-200 enabled:hover:text-tide-900 enabled:hover:bg-tide-300 enabled:active:bg-tide-200;
+  @apply dark:text-tide-300 dark:bg-tide-850 enabled:dark:hover:text-tide-100 enabled:dark:hover:bg-tide-800 enabled:dark:active:bg-tide-850;
+  @apply disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500/50 focus-visible:outline-offset-0;
+}
+
+.button-primary-outlined {
+  @apply relative flex items-center justify-center gap-2 transition-colors border-2;
+  @apply text-tide-700 border-tide-200 enabled:hover:text-tide-900 enabled:hover:bg-tide-300 enabled:active:bg-tide-200 enabled:hover:border-transparent;
+  @apply dark:border-tide-850 dark:text-tide-300 enabled:dark:hover:text-tide-100 enabled:dark:hover:bg-tide-800 enabled:dark:active:bg-tide-850 enabled:hover:border-transparent;
+  @apply disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500/50 focus-visible:outline-offset-0;
+}
+
+.button-primary-flat {
+  @apply relative flex items-center justify-center gap-2 transition-colors;
+  @apply text-tide-700 enabled:hover:text-tide-900 enabled:hover:bg-tide-300 enabled:active:bg-tide-200;
+  @apply dark:text-tide-300 enabled:dark:hover:text-tide-100 enabled:dark:hover:bg-tide-800 enabled:dark:active:bg-tide-850;
+  @apply disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500/50 focus-visible:outline-offset-0;
+}
+
+.button-warning-filled {
+  @apply relative flex items-center justify-center gap-2 text-white bg-rose-500 hover:bg-rose-400 active:bg-rose-500;
+  @apply disabled:bg-tide-700 disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-rose-500/50 focus-visible:outline-offset-0;
+}
+
+.button-warning-flat {
+  @apply relative flex items-center justify-center gap-2 transition-colors text-rose-500;
+  @apply active:bg-rose-600 hover:bg-rose-500 hover:text-white;
+  @apply disabled:text-tide-500 disabled:bg-transparent disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-rose-500/50 focus-visible:outline-offset-0;
+}
+
+/* input classes */
+.input-checkbox-filled-outlined {
+  @apply border-2 rounded outline-none ring-0 ring-offset-0 outline-0 focus:ring-offset-0 focus:outline-0 focus:ring-0;
+  @apply bg-white border-tide-500 enabled:hover:border-tide-700; /* unchecked-light */
+  @apply dark:bg-tide-900 dark:enabled:hover:border-tide-200; /* unchecked-dark */
+  @apply enabled:checked:bg-sky-500 enabled:checked:hover:bg-sky-400 enabled:checked:!border-transparent; /* checked */
+  @apply enabled:indeterminate:bg-sky-500 enabled:indeterminate:hover:bg-sky-400 enabled:indeterminate:!border-transparent; /* checked */
+  @apply disabled:!bg-tide-300 disabled:dark:!bg-tide-850 disabled:opacity-25;
+  @apply enabled:cursor-pointer disabled:cursor-not-allowed;
+}
+
+.input-primary-filled {
+  @apply relative flex items-center gap-2 border-none outline-none ring-0;
+  @apply text-tide-700 bg-tide-50;
+  @apply dark:text-tide-300 dark:bg-tide-900;
+  @apply disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-0;
+}
+.input-primary-outlined {
+  @apply relative flex items-center gap-2 bg-transparent border-2;
+  @apply text-tide-700 border-tide-200;
+  @apply dark:border-tide-900 dark:text-tide-300;
+  @apply disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:border-sky-500 focus-visible:outline-none;
+  /* @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:outline-offset-0; */
+}
+.input-primary-filled-outlined {
+  @apply relative flex items-center gap-2 border-2 outline-none ring-0;
+  @apply bg-white text-tide-700 border-tide-300 placeholder:text-tide-400;
+  @apply dark:text-tide-300 dark:border-tide-800 dark:bg-tide-900 placeholder:dark:text-tide-700;
+  @apply disabled:cursor-not-allowed disabled:opacity-25;
+  @apply focus-visible:border-sky-500;
+  @apply focus-within:border-sky-500 focus-within:outline-none;
+}
+
+/* Floating-Vue */
+.v-popper--theme-dropdown .v-popper__inner {
+  @apply bg-white dark:bg-tide-900 border-tide-100 dark:border-tide-850 shadow-md !important;
+}
+
+.v-popper--theme-dropdown .v-popper__arrow-outer {
+  @apply border-tide-100 dark:border-tide-850 !important;
+}
+
+.v-popper--theme-dropdown .v-popper__arrow-inner {
+  @apply border-white dark:border-tide-900 !important;
+}
+
+/* .v-popper--theme-dropdown .v-popper__inner {
+  background: #fbff00 I !important;
+  color: #e12323 !important;
+  border: 1px #00ff4c solid !important;
+}
+
+.v-popper--theme-dropdown .v-popper__inner {
+  background: #fbff00;
+  color: #e12323;
+  border: 1px #00ff4c solid;
+}
+
+.v-popper--theme-dropdown .v-popper__arrow-outer {
+  border-color: #00ff4c;
+}
+
+.v-popper--theme-dropdown .v-popper__arrow-inner {
+  border-color: #fbff00;
+}
+
+.dark .v-popper--theme-dropdown .v-popper__inner {
+  background: #00ffaa;
+  color: #ff0000;
+  border: 1px #4400ff solid;
+}
+
+.dark .v-popper--theme-dropdown .v-popper__arrow-outer {
+  border-color: #4400ff;
+}
+
+.dark .v-popper--theme-dropdown .v-popper__arrow-inner {
+  border-color: #00ffaa;
+} */

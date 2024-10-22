@@ -1,0 +1,27 @@
+mutation CreateAccount($data: accounts_insert_input!) {
+  insert_accounts_one(object: $data) {
+    ...Account
+  }
+}
+
+mutation CreatePublicRole($user_id: uuid!, $role: Role_enum = public) {
+  insert_user_role_one(
+    object: { user_id: $user_id, role: $role, active: true }
+  ) {
+    id
+    created_at
+  }
+}
+
+mutation DeleteAccount($provider: String!, $providerAccountId: String!) {
+  delete_accounts(
+    where: {
+      provider: { _eq: $provider }
+      providerAccountId: { _eq: $providerAccountId }
+    }
+  ) {
+    returning {
+      ...Account
+    }
+  }
+}

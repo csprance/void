@@ -1,0 +1,3 @@
+content/.vitepress/cache/
+content/.vitepress/dist/
+node_modules

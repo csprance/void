@@ -1,0 +1,17 @@
+fragment Account on accounts {
+  __typename
+  id
+  type
+  scope
+  userId
+  id_token
+  provider
+  expires_at
+  token_type
+  oauth_token
+  access_token
+  refresh_token
+  session_state
+  providerAccountId
+  oauth_token_secret
+}

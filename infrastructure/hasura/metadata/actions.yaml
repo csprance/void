@@ -1,0 +1,62 @@
+actions:
+  - name: backend_version
+    definition:
+      kind: ""
+      handler: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/actions/backend_version"
+      headers:
+        - name: AdminSecret
+          value_from_env: APP_SECRET
+    comment: Get The version of the backend
+  - name: embed_prompt
+    definition:
+      kind: synchronous
+      handler: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/actions/embed_prompt"
+      headers:
+        - name: AdminSecret
+          value_from_env: APP_SECRET
+    comment: Given a prompt and a model generate and return an embedding for that
+  - name: ml_tag_batch
+    definition:
+      kind: synchronous
+      handler: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/actions/ml_tag_batch"
+      headers:
+        - name: AdminSecret
+          value_from_env: APP_SECRET
+    comment: Start the processing of tags via machine learning ollama multi modal vision model for assets provided
+  - name: ml_tag_single
+    definition:
+      kind: synchronous
+      handler: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/actions/ml_tag_single"
+      headers:
+        - name: AdminSecret
+          value_from_env: APP_SECRET
+    comment: Generate ML Tags for a single asset
+  - name: stop_sync_storage_point
+    definition:
+      kind: synchronous
+      handler: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/actions/stop_sync_storage_point"
+      headers:
+        - name: AdminSecret
+          value_from_env: APP_SECRET
+    comment: Stops syncing a storage point by name
+  - name: sync_storage_point
+    definition:
+      kind: synchronous
+      handler: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/actions/sync_storage_point"
+      headers:
+        - name: AdminSecret
+          value_from_env: APP_SECRET
+custom_types:
+  enums: []
+  input_objects:
+    - name: EmbedPromptInput
+    - name: SampleInput
+  objects:
+    - name: SyncResponse
+    - name: StopSyncOutput
+    - name: VersionOutput
+    - name: MLTagOutput
+    - name: TagObject
+    - name: EmbedPromptOutput
+    - name: SampleOutput
+  scalars: []

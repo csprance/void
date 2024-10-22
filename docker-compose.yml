@@ -1,0 +1,120 @@
+services:
+  postgres:
+    build:
+      context: infrastructure/postgres
+    restart: always
+    volumes:
+      - void_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - web
+
+  backend:
+    depends_on:
+      hasura:
+        condition: service_healthy
+    restart: always
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    stdin_open: true # -i
+    tty: true # -t
+    volumes:
+      - void:/void
+    networks:
+      - web
+      - app-network
+    environment:
+      NODE_ENV: "production"
+
+  frontend:
+    depends_on:
+      backend:
+        condition: service_healthy
+      hasura:
+        condition: service_healthy
+    restart: always
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+    environment:
+      NODE_ENV: "production"
+    networks:
+      - web
+
+  hasura:
+    image: hasura/graphql-engine:latest.cli-migrations-v3
+    depends_on:
+      - postgres
+    volumes:
+      - ./infrastructure/hasura/migrations:/hasura-migrations
+      - ./infrastructure/hasura/metadata:/hasura-metadata
+    restart: always
+    networks:
+      - web
+    environment:
+      ## postgres database to store Hasura metadata
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/postgres
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/postgres
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_ADMIN_SECRET: ${APP_SECRET}
+      APP_SECRET: ${APP_SECRET}
+      TZ: America/New_York
+
+  redis:
+    image: redis:7.2.5-alpine
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+    restart: always
+    ports:
+      - "6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
+
+  bull-monitor:
+    image: ejhayes/nodejs-bull-monitor:latest
+    ports:
+      - "3000"
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      BULL_WATCH_QUEUE_PREFIXES: bull
+      PORT: 3000
+      UI: bull-master
+    networks:
+      - app-network
+      - web
+
+  docs:
+    build:
+      context: .
+      dockerfile: apps/docs/Dockerfile
+    networks:
+      - web
+    restart: always
+
+networks:
+  web:
+    external: true
+  app-network:
+    driver: bridge
+
+volumes:
+  redis_data:
+    external: true
+  void:
+    external: true
+  void_db:
+    external: true

@@ -1,0 +1,18 @@
+fragment PublicUserData on user {
+  username
+  id
+  first_name
+  last_name
+  email
+  active
+  active_role: user_roles(where: { active: { _eq: true } }) {
+    role
+  }
+  user_roles(order_by: { role: asc_nulls_last }) {
+    role
+  }
+  job_title
+  created_at
+  updated_at
+  avatar
+}

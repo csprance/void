@@ -1,0 +1,125 @@
+- name: default
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: HASURA_GRAPHQL_DATABASE_URL
+      isolation_level: read-committed
+      pool_settings:
+        connection_lifetime: 600
+        idle_timeout: 180
+        max_connections: 50
+        retries: 1
+      use_prepared_statements: true
+  logical_models:
+    - fields:
+        - name: id
+          type:
+            nullable: false
+            scalar: integer
+        - name: asset_id
+          type:
+            nullable: false
+            scalar: uuid
+        - name: collection
+          type:
+            nullable: false
+            scalar: citext
+        - name: document
+          type:
+            nullable: false
+            scalar: citext
+        - name: model
+          type:
+            nullable: false
+            scalar: varchar
+        - name: distance
+          type:
+            nullable: false
+            scalar: float8
+        - name: archived
+          type:
+            nullable: false
+            scalar: boolean
+        - name: storage_point
+          type:
+            nullable: false
+            scalar: text
+        - name: cost
+          type:
+            nullable: false
+            scalar: integer
+        - name: created_at
+          type:
+            nullable: false
+            scalar: timestamptz
+        - name: creator
+          type:
+            nullable: false
+            scalar: citext
+        - name: description
+          type:
+            nullable: false
+            scalar: text
+        - name: filepath
+          type:
+            nullable: false
+            scalar: text
+        - name: hash
+          type:
+            nullable: false
+            scalar: text
+        - name: metadata
+          type:
+            nullable: false
+            scalar: jsonb
+        - name: name
+          type:
+            nullable: false
+            scalar: citext
+        - name: owner
+          type:
+            nullable: false
+            scalar: uuid
+        - name: status
+          type:
+            nullable: false
+            scalar: text
+        - name: thumbnail
+          type:
+            nullable: false
+            scalar: text
+        - name: thumbnail_video
+          type:
+            nullable: false
+            scalar: text
+        - name: type
+          type:
+            nullable: false
+            scalar: citext
+        - name: updated_at
+          type:
+            nullable: false
+            scalar: timestamptz
+        - name: variation_id
+          type:
+            nullable: true
+            scalar: uuid
+      name: embeddings_model
+  native_queries:
+    - arguments:
+        query_vector:
+          description: The Query Vector to search distance to
+          nullable: false
+          type: text
+      code: SELECT e.id, e.asset_id, e.collection, e.model, e.created_at, e.updated_at, e.document, e.metadata, e.embedding::vector <=> {{query_vector}}::vector AS distance, a.archived, a.storage_point, a.cost, a.creator, a.description, a.filepath, a.hash, a.name, a.owner, a.status, a.thumbnail, a.thumbnail_video, a.type, a.variation_id FROM public.embeddings e INNER JOIN public.asset a ON e.asset_id = a.id;
+      object_relationships:
+        - name: asset
+          using:
+            column_mapping:
+              asset_id: id
+            insertion_order: null
+            remote_native_query: embeddings_distance
+      returns: embeddings_model
+      root_field_name: embeddings_distance
+  tables: "!include default/tables/tables.yaml"

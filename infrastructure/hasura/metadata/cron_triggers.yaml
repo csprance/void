@@ -1,0 +1,27 @@
+- name: cleanup-temp-files
+  webhook: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/cron/cleanup-temp-files"
+  schedule: 0 * * * *
+  include_in_metadata: true
+  payload: {}
+  headers:
+    - name: AdminSecret
+      value_from_env: APP_SECRET
+  comment: Every hour go and clean up temp files based on the filename of the file
+- name: purge-audit-log
+  webhook: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/cron/purge-audit-log"
+  schedule: 0 0 1 * *
+  include_in_metadata: true
+  payload: {}
+  headers:
+    - name: AdminSecret
+      value_from_env: APP_SECRET
+  comment: Purge the audit log on a regular basis for logs older than 3 months
+- name: purge-hdb-catalog
+  webhook: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/cron/purge-hdb-catalog"
+  schedule: 0 0 1 * *
+  include_in_metadata: true
+  payload: {}
+  headers:
+    - name: AdminSecret
+      value_from_env: APP_SECRET
+  comment: Purge the hdb catalog on a regular basis for logs older than 3 months

@@ -1,0 +1,75 @@
+table:
+  name: attribute
+  schema: public
+array_relationships:
+  - name: asset_attributes
+    using:
+      foreign_key_constraint_on:
+        column: attribute_id
+        table:
+          name: asset_attribute
+          schema: public
+insert_permissions:
+  - role: manager
+    permission:
+      check: {}
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - default
+        - name
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - default
+        - name
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - default
+        - hasura_upsert_exploit
+        - id
+        - name
+        - type
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - default
+        - hasura_upsert_exploit
+        - id
+        - name
+        - type
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - default
+        - name
+      filter: {}
+      check: {}
+  - role: user
+    permission:
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - default
+        - name
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: manager
+    permission:
+      filter: {}
+  - role: user
+    permission:
+      filter: {}

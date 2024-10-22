@@ -1,0 +1,11 @@
+{
+  "name": "@void/tsconfig",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Typescript and friends config for void and it's packages",
+  "license": "SEE  LICENSE IN LICENSE",
+  "author": "Chris Sprance",
+  "files": [
+    "tsconfig.bun.json"
+  ]
+}

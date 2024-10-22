@@ -1,0 +1,25 @@
+services:
+  hasura:
+    environment:
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # This is handy to see in prod
+      HASURA_GRAPHQL_AUTH_HOOK: "${BASE_URL}/api/hasura"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      NUXT_PUBLIC_BACKEND_URL: ${NUXT_PUBLIC_BACKEND_URL}
+    ports:
+      - "8080"
+
+  backend:
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: "production"
+    ports:
+      - "1337"
+
+  frontend:
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: "production"
+    ports:
+      - "3000"

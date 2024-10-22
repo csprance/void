@@ -1,0 +1,29 @@
+services:
+  hasura:
+    labels:
+      - "traefik.http.routers.void-hasura.rule=Host(`hasura.void-app.localhost`)"
+      - "traefik.http.routers.void-hasura.entrypoints=web" # Use HTTP
+
+  backend:
+    env_file:
+      - .env.staging
+    labels:
+      - "traefik.http.routers.void-backend.rule=Host(`backend.void-app.localhost`)"
+      - "traefik.http.routers.void-hasura.entrypoints=web" # Use HTTP
+
+  frontend:
+    env_file:
+      - .env.staging
+    labels:
+      - "traefik.http.routers.void-frontend.rule=Host(`void-app.localhost`)"
+      - "traefik.http.routers.void-hasura.entrypoints=web" # Use HTTP
+
+  bull-monitor:
+    labels:
+      - "traefik.http.routers.void-queue.rule=Host(`queue.void-app.localhost`)"
+      - "traefik.http.routers.void-hasura.entrypoints=web" # Use HTTP
+
+  docs:
+    labels:
+      - "traefik.http.routers.void-docs.rule=Host(`docs.void-app.localhost`)"
+      - "traefik.http.routers.void-hasura.entrypoints=web" # Use HTTP

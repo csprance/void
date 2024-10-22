@@ -1,0 +1,11 @@
+table:
+  name: hook
+  schema: public
+array_relationships:
+  - name: hook_logs
+    using:
+      foreign_key_constraint_on:
+        column: hook_id
+        table:
+          name: hook_log
+          schema: public

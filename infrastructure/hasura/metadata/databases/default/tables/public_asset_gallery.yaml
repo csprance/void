@@ -1,0 +1,114 @@
+table:
+  name: asset_gallery
+  schema: public
+object_relationships:
+  - name: asset
+    using:
+      foreign_key_constraint_on: asset_id
+insert_permissions:
+  - role: manager
+    permission:
+      check: {}
+      columns:
+        - description
+        - is_video
+        - id
+        - asset_id
+        - mime_type
+        - full
+        - thumbnail
+        - name
+        - order
+        - created_at
+        - updated_at
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - description
+        - is_video
+        - id
+        - asset_id
+        - mime_type
+        - full
+        - thumbnail
+        - name
+        - order
+        - created_at
+        - updated_at
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - description
+        - is_video
+        - id
+        - asset_id
+        - mime_type
+        - full
+        - thumbnail
+        - name
+        - order
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - description
+        - is_video
+        - id
+        - asset_id
+        - mime_type
+        - full
+        - thumbnail
+        - name
+        - order
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - description
+        - is_video
+        - id
+        - asset_id
+        - mime_type
+        - full
+        - thumbnail
+        - name
+        - order
+        - created_at
+        - updated_at
+      filter: {}
+      check: {}
+  - role: user
+    permission:
+      columns:
+        - description
+        - is_video
+        - id
+        - asset_id
+        - mime_type
+        - full
+        - thumbnail
+        - name
+        - order
+        - created_at
+        - updated_at
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: manager
+    permission:
+      filter: {}
+  - role: user
+    permission:
+      filter:
+        asset:
+          owner:
+            _eq: X-Hasura-User-Id

@@ -1,0 +1,67 @@
+type Query {
+  backend_version: VersionOutput
+}
+
+type Mutation {
+  embed_prompt(model: String, prompt: String!): EmbedPromptOutput
+}
+
+type Mutation {
+  ml_tag_batch(asset_ids: [String!]!): [String]
+}
+
+type Mutation {
+  ml_tag_single(asset_id: uuid!): MLTagOutput
+}
+
+type Mutation {
+  stop_sync_storage_point(name: String!): StopSyncOutput
+}
+
+type Mutation {
+  sync_storage_point(name: String!): SyncResponse
+}
+
+input EmbedPromptInput {
+  model: String
+  prompt: String!
+}
+
+input SampleInput {
+  username: String!
+  password: String!
+}
+
+type SyncResponse {
+  status: String
+  message: String
+}
+
+type StopSyncOutput {
+  message: String!
+}
+
+type VersionOutput {
+  """
+  The version of the backend
+  """
+  version: String!
+}
+
+type MLTagOutput {
+  asset_id: uuid!
+}
+
+type TagObject {
+  tag: String!
+}
+
+type EmbedPromptOutput {
+  model: String!
+  prompt: String!
+  embedding: vector!
+}
+
+type SampleOutput {
+  accessToken: String!
+}

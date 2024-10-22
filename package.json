@@ -1,0 +1,53 @@
+{
+  "name": "void",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Monorepo for VOID",
+  "license": "SEE LICENSE IN LICENSE",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "bullmonitor": "bun run scripts/open-mailhog.ts",
+    "backend": "bun run --filter @void/backend dev",
+    "codegen-watch": "bun run --filter @void/codegen graphql-codegen-watch",
+    "docs": "bun run --filter @void/docs dev",
+    "hasura-console": "cd infrastructure/hasura && hasura console --admin-secret=APP-SECRET-DEVELOPMENT-LOCALHOST",
+    "preinstall": "bun run scripts/preinstall.ts",
+    "mailhog": "bun run scripts/open-bullmonitor.ts",
+    "prettier": "prettier \"**/*.{ts,js,json,md,yml,yaml,gql,graphql,vue}\" --write",
+    "void:clean": "bun ./apps/cli/src/index.ts clean",
+    "void:reset-dev": "bun ./apps/cli/src/index.ts reset dev",
+    "void:reset-prod": "bun ./apps/cli/src/index.ts reset prod",
+    "void:reset-staging": "bun ./apps/cli/src/index.ts reset staging",
+    "void:start-dev": "bun ./apps/cli/src/index.ts start dev",
+    "void:start-prod": "bun ./apps/cli/src/index.ts start prod",
+    "void:start-staging": "bun ./apps/cli/src/index.ts start staging"
+  },
+  "dependencies": {
+    "@eslint/js": "^9.12.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/bun": "latest",
+    "@types/eslint__js": "^8.42.3",
+    "@types/node": "^22.5.4",
+    "@typescript-eslint/eslint-plugin": "8.3.0",
+    "@typescript-eslint/parser": "8.3.0",
+    "@void/cli": "workspace:*",
+    "@void/hasura": "workspace:*",
+    "@void/settings": "workspace:*",
+    "@void/tsconfig": "workspace:*",
+    "barrelsby": "2.8.1",
+    "chokidar": "^4.0.1",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.0.1",
+    "dotenv": "16.4.5",
+    "dotenv-cli": "^7.4.2",
+    "dotenv-expand": "11.0.6",
+    "dotenv-flow": "4.1.0",
+    "hasura-cli": "2.36.1",
+    "prettier": "latest",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.9.0"
+  }
+}

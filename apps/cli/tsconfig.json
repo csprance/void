@@ -1,0 +1,3 @@
+{
+  "extends": "@void/tsconfig/tsconfig.bun.json"
+}

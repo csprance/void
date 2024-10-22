@@ -1,0 +1,14 @@
+{
+  "name": "@void/hasura",
+  "version": "1.0.0",
+  "private": true,
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
+  "module": "src/index.ts",
+  "main": "src/index.ts",
+  "scripts": {
+    "barrels": "barrelsby --config .barrelsby.json",
+    "lint": "eslint \"**/*.ts\""
+  },
+  "dependencies": {}
+}

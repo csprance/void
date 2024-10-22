@@ -1,0 +1,21 @@
+# This represents the actual site(s) you're deploying it to. Could have one for each site you want to deploy to
+services:
+  hasura:
+    labels:
+      - "traefik.http.routers.void-hasura.rule=Host(`hasura.void.csprance.com`)"
+
+  backend:
+    labels:
+      - "traefik.http.routers.void-backend.rule=Host(`backend.void.csprance.com`)"
+
+  frontend:
+    labels:
+      - "traefik.http.routers.void-frontend.rule=Host(`void.csprance.com`)"
+
+  bull-monitor:
+    labels:
+      - "traefik.http.routers.void-queue.rule=Host(`queue.void.csprance.com`)"
+
+  docs:
+    labels:
+      - "traefik.http.routers.void-docs.rule=Host(`docs.void.csprance.com`)"

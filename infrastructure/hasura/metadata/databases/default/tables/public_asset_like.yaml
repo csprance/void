@@ -1,0 +1,68 @@
+table:
+  name: asset_like
+  schema: public
+object_relationships:
+  - name: asset
+    using:
+      foreign_key_constraint_on: asset_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+insert_permissions:
+  - role: manager
+    permission:
+      check: {}
+      columns:
+        - id
+        - asset_id
+        - user_id
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - id
+        - asset_id
+        - user_id
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - id
+        - asset_id
+        - user_id
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - id
+        - asset_id
+        - user_id
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - id
+        - asset_id
+        - user_id
+      filter: {}
+      check: {}
+  - role: user
+    permission:
+      columns:
+        - id
+        - asset_id
+        - user_id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: manager
+    permission:
+      filter: {}
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id

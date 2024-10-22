@@ -1,0 +1,81 @@
+table:
+  name: category
+  schema: public
+object_relationships:
+  - name: category
+    using:
+      foreign_key_constraint_on: parent_id
+array_relationships:
+  - name: asset_categories
+    using:
+      foreign_key_constraint_on:
+        column: category_id
+        table:
+          name: asset_category
+          schema: public
+  - name: categories
+    using:
+      foreign_key_constraint_on:
+        column: parent_id
+        table:
+          name: category
+          schema: public
+insert_permissions:
+  - role: manager
+    permission:
+      check: {}
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - parent_id
+        - name
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - parent_id
+        - name
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - parent_id
+        - name
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - parent_id
+        - name
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - parent_id
+        - name
+      filter: {}
+      check: {}
+  - role: user
+    permission:
+      columns:
+        - hasura_upsert_exploit
+        - id
+        - parent_id
+        - name
+      filter: {}
+      check: null
+delete_permissions:
+  - role: manager
+    permission:
+      filter: {}

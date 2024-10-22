@@ -1,0 +1,18 @@
+{
+  "name": "@void/docs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Documentation website for void.",
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "build": "vitepress build content",
+    "clean": "rimraf .turbo content/.vitepress/cache content/.vitepress/dist",
+    "dev": "vitepress dev content",
+    "preview": "vitepress preview content"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vitepress": "^1.2.3",
+    "vue": "^3.4.27"
+  }
+}

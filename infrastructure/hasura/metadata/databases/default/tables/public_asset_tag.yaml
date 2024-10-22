@@ -1,0 +1,63 @@
+table:
+  name: asset_tag
+  schema: public
+object_relationships:
+  - name: asset
+    using:
+      foreign_key_constraint_on: asset_id
+  - name: tag
+    using:
+      foreign_key_constraint_on: tag_id
+insert_permissions:
+  - role: manager
+    permission:
+      check: {}
+      columns:
+        - asset_id
+        - tag_id
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - asset_id
+        - tag_id
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - asset_id
+        - tag_id
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - asset_id
+        - tag_id
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - asset_id
+        - tag_id
+      filter: {}
+      check: {}
+  - role: user
+    permission:
+      columns:
+        - asset_id
+        - tag_id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: manager
+    permission:
+      filter: {}
+  - role: user
+    permission:
+      filter:
+        asset:
+          owner:
+            _eq: X-Hasura-User-Id

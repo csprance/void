@@ -1,0 +1,3 @@
+table:
+  name: flat_settings
+  schema: public

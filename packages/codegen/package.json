@@ -1,0 +1,25 @@
+{
+  "name": "@void/codegen",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Codegen  @void.",
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
+  "scripts": {
+    "graphql-codegen": "graphql-codegen --config ./codegen.ts",
+    "graphql-codegen-watch": "graphql-codegen --watch --config ./codegen.ts"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.2.6",
+    "@graphql-codegen/introspection": "^4.0.3",
+    "@graphql-codegen/typed-document-node": "^5.0.7",
+    "@graphql-codegen/typescript": "^4.0.7",
+    "@graphql-codegen/typescript-generic-sdk": "^4.0.1",
+    "@graphql-codegen/typescript-graphql-files-modules": "^3.0.0",
+    "@graphql-codegen/typescript-graphql-request": "^6.2.0",
+    "@graphql-codegen/typescript-operations": "^4.2.1",
+    "@graphql-codegen/typescript-vue-urql": "^3.1.0",
+    "@parcel/watcher": "^2.4.1"
+  }
+}

@@ -1,0 +1,105 @@
+table:
+  name: collection
+  schema: public
+array_relationships:
+  - name: assets
+    using:
+      foreign_key_constraint_on:
+        column: collection_id
+        table:
+          name: collection_asset
+          schema: public
+insert_permissions:
+  - role: manager
+    permission:
+      check: {}
+      columns:
+        - description
+        - id
+        - private
+        - thumbnail
+        - name
+        - owner
+        - hasura_upsert_exploit
+        - created_at
+        - updated_at
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - description
+        - id
+        - private
+        - thumbnail
+        - name
+        - owner
+        - hasura_upsert_exploit
+        - created_at
+        - updated_at
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - description
+        - id
+        - private
+        - thumbnail
+        - name
+        - owner
+        - hasura_upsert_exploit
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - description
+        - id
+        - private
+        - thumbnail
+        - name
+        - owner
+        - hasura_upsert_exploit
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - description
+        - id
+        - private
+        - thumbnail
+        - name
+        - owner
+        - hasura_upsert_exploit
+        - created_at
+        - updated_at
+      filter: {}
+      check: {}
+  - role: user
+    permission:
+      columns:
+        - description
+        - id
+        - private
+        - thumbnail
+        - name
+        - owner
+        - hasura_upsert_exploit
+        - created_at
+        - updated_at
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: manager
+    permission:
+      filter: {}
+  - role: user
+    permission:
+      filter:
+        owner:
+          _eq: X-Hasura-User-Id

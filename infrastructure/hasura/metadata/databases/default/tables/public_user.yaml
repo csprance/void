@@ -1,0 +1,188 @@
+table:
+  name: user
+  schema: public
+array_relationships:
+  - name: accounts
+    using:
+      foreign_key_constraint_on:
+        column: userId
+        table:
+          name: accounts
+          schema: public
+  - name: asset_likes
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: asset_like
+          schema: public
+  - name: assets
+    using:
+      foreign_key_constraint_on:
+        column: owner
+        table:
+          name: asset
+          schema: public
+  - name: downloads
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: downloads
+          schema: public
+  - name: events
+    using:
+      foreign_key_constraint_on:
+        column: alt_user_id
+        table:
+          name: event
+          schema: public
+  - name: notifications
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: notification
+          schema: public
+  - name: sessions
+    using:
+      foreign_key_constraint_on:
+        column: userId
+        table:
+          name: sessions
+          schema: public
+  - name: user_roles
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: user_role
+          schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - active
+        - avatar
+        - cell
+        - city
+        - country
+        - created_at
+        - credits
+        - email
+        - emailVerified
+        - first_name
+        - id
+        - job_title
+        - last_name
+        - theme_name
+        - updated_at
+        - username
+      filter: {}
+      allow_aggregations: true
+  - role: public
+    permission:
+      columns:
+        - active
+        - avatar
+        - cell
+        - city
+        - country
+        - created_at
+        - credits
+        - email
+        - first_name
+        - id
+        - job_title
+        - last_name
+        - theme_name
+        - updated_at
+        - username
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - active
+        - avatar
+        - cell
+        - city
+        - country
+        - created_at
+        - credits
+        - email
+        - emailVerified
+        - first_name
+        - id
+        - job_title
+        - last_name
+        - theme_name
+        - updated_at
+        - username
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - active
+        - avatar
+        - cell
+        - city
+        - country
+        - created_at
+        - credits
+        - email
+        - emailVerified
+        - first_name
+        - job_title
+        - last_name
+        - theme_name
+        - updated_at
+        - username
+      filter: {}
+      check: {}
+  - role: user
+    permission:
+      columns:
+        - active
+        - avatar
+        - cell
+        - city
+        - country
+        - email
+        - first_name
+        - job_title
+        - last_name
+        - theme_name
+        - username
+      filter:
+        username:
+          _eq: X-Hasura-User-Id
+      check:
+        username:
+          _eq: X-Hasura-User-Id
+delete_permissions:
+  - role: manager
+    permission:
+      filter: {}
+event_triggers:
+  - name: user-trigger
+    definition:
+      delete:
+        columns: "*"
+      enable_manual: false
+      insert:
+        columns: "*"
+      update:
+        columns: "*"
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/events/user"
+    headers:
+      - name: AdminSecret
+        value_from_env: APP_SECRET

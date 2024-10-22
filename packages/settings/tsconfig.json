@@ -1,0 +1,5 @@
+{
+  "extends": "@void/tsconfig/tsconfig.bun.json",
+  "include": ["src"],
+  "exclude": ["dist", "node_modules"]
+}

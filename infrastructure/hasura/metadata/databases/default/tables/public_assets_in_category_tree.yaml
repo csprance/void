@@ -1,0 +1,13 @@
+table:
+  name: assets_in_category_tree
+  schema: public
+object_relationships:
+  - name: asset
+    using:
+      manual_configuration:
+        column_mapping:
+          asset_id: id
+        insertion_order: null
+        remote_table:
+          name: asset
+          schema: public

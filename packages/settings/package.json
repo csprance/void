@@ -1,0 +1,14 @@
+{
+  "name": "@void/settings",
+  "version": "1.0.0",
+  "private": true,
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
+  "module": "src/index.ts",
+  "main": "src/index.ts",
+  "scripts": {
+    "prettier": "pre",
+    "lint": "eslint \"**/*.ts\""
+  },
+  "dependencies": {}
+}

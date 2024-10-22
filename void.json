@@ -1,0 +1,42 @@
+{
+  "composeFiles": {
+    "prod": [
+      "docker-compose.yml",
+      "docker-compose.prod.yml",
+      "docker-compose.traefik.yml",
+      "docker-compose.site.yml"
+    ],
+    "dev": ["docker-compose.yml", "docker-compose.dev.yml"],
+    "staging": [
+      "docker-compose.yml",
+      "docker-compose.prod.yml",
+      "docker-compose.traefik.yml",
+      "docker-compose.staging.yml"
+    ]
+  },
+  "volumes": {
+    "persistent": [],
+    "reset": ["void", "void_db", "redis_data"]
+  },
+  "services": {
+    "prod": [
+      "postgres",
+      "hasura",
+      "redis",
+      "frontend",
+      "backend",
+      "bull-monitor",
+      "docs"
+    ],
+    "dev": ["postgres", "hasura", "mailhog", "redis", "bull-monitor"],
+    "staging": [
+      "postgres",
+      "hasura",
+      "redis",
+      "frontend",
+      "backend",
+      "bull-monitor",
+      "docs"
+    ]
+  }
+}

@@ -1,0 +1,252 @@
+table:
+  name: asset
+  schema: public
+object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: owner
+  - name: variation_of
+    using:
+      foreign_key_constraint_on: variation_id
+array_relationships:
+  - name: asset_attributes
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: asset_attribute
+          schema: public
+  - name: asset_categories
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: asset_category
+          schema: public
+  - name: asset_downloads
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: downloads
+          schema: public
+  - name: asset_galleries
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: asset_gallery
+          schema: public
+  - name: asset_likes
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: asset_like
+          schema: public
+  - name: asset_pending_tags
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: pending_tag
+          schema: public
+  - name: asset_tags
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: asset_tag
+          schema: public
+  - name: collections
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: collection_asset
+          schema: public
+  - name: embeddings
+    using:
+      foreign_key_constraint_on:
+        column: asset_id
+        table:
+          name: embeddings
+          schema: public
+  - name: variations
+    using:
+      foreign_key_constraint_on:
+        column: variation_id
+        table:
+          name: asset
+          schema: public
+insert_permissions:
+  - role: manager
+    permission:
+      check: {}
+      columns:
+        - thumbnail_video
+        - metadata
+        - hash
+        - description
+        - type
+        - creator
+        - cost
+        - archived
+        - variation_id
+        - id
+        - filepath
+        - thumbnail
+        - status
+        - storage_point
+        - owner
+        - name
+        - created_at
+        - updated_at
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - thumbnail_video
+        - metadata
+        - hash
+        - description
+        - type
+        - creator
+        - cost
+        - archived
+        - variation_id
+        - id
+        - filepath
+        - thumbnail
+        - status
+        - storage_point
+        - owner
+        - name
+        - created_at
+        - updated_at
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - thumbnail_video
+        - metadata
+        - hash
+        - description
+        - type
+        - creator
+        - cost
+        - archived
+        - variation_id
+        - id
+        - filepath
+        - thumbnail
+        - status
+        - storage_point
+        - owner
+        - name
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - thumbnail_video
+        - metadata
+        - hash
+        - description
+        - type
+        - creator
+        - cost
+        - archived
+        - variation_id
+        - id
+        - filepath
+        - thumbnail
+        - status
+        - storage_point
+        - owner
+        - name
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - thumbnail_video
+        - metadata
+        - hash
+        - description
+        - type
+        - creator
+        - cost
+        - archived
+        - variation_id
+        - id
+        - filepath
+        - thumbnail
+        - status
+        - storage_point
+        - owner
+        - name
+        - created_at
+        - updated_at
+      filter: {}
+      check: {}
+  - role: user
+    permission:
+      columns:
+        - thumbnail_video
+        - metadata
+        - hash
+        - description
+        - type
+        - creator
+        - cost
+        - archived
+        - variation_id
+        - id
+        - filepath
+        - thumbnail
+        - status
+        - storage_point
+        - owner
+        - name
+        - created_at
+        - updated_at
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: manager
+    permission:
+      filter: {}
+  - role: user
+    permission:
+      filter:
+        owner:
+          _eq: X-Hasura-User-Id
+event_triggers:
+  - name: asset-trigger
+    definition:
+      delete:
+        columns: "*"
+      enable_manual: false
+      insert:
+        columns: "*"
+      update:
+        columns:
+          - name
+          - status
+          - description
+          - archived
+          - id
+    retry_conf:
+      interval_sec: 60
+      num_retries: 3
+      timeout_sec: 60
+    webhook: "{{NUXT_PUBLIC_BACKEND_URL}}/rest/hasura/events/asset"
+    headers:
+      - name: AdminSecret
+        value_from_env: APP_SECRET

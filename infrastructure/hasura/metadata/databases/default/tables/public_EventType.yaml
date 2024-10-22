@@ -1,0 +1,18 @@
+table:
+  name: EventType
+  schema: public
+is_enum: true
+array_relationships:
+  - name: events
+    using:
+      foreign_key_constraint_on:
+        column: event_type
+        table:
+          name: event
+          schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - value
+      filter: {}
